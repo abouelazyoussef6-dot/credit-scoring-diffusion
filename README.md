@@ -8,6 +8,8 @@ modèle de scoring à mieux repérer les vrais défauts, par rapport aux méthod
 sous-échantillonnage, duplication, SMOTE), à d'autres générateurs profonds (TVAE, CTGAN) et à l'absence de
 rééquilibrage ?
 
+**Application en ligne : https://scoring-credit-diffusion.streamlit.app** · Code : https://github.com/abouelazyoussef6-dot/credit-scoring-diffusion
+
 ## Résultats en bref
 
 **Modèles (validation croisée, 15 découpages, sans rééquilibrage)** — la comparaison baseline / modèles avancés :
@@ -175,6 +177,10 @@ calculés : il n'est pas nécessaire de relancer les calculs pour utiliser l'app
 Pour explorer les données : `jupyter notebook notebooks/01_eda.ipynb`.
 
 ## Application
+
+Version en ligne, sans installation : **https://scoring-credit-diffusion.streamlit.app**
+
+En local :
 
 ```bash
 streamlit run app/streamlit_app.py
