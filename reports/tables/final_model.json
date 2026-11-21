@@ -1,0 +1,9 @@
+{
+  "classifieur": "LightGBM",
+  "config": "Aucune",
+  "seuil_cout": 0.127,
+  "brier_test_brut": 0.06004256626900033,
+  "brier_test_calibre": 0.053057417639114354,
+  "seuil_f1": 0.45979035348792024,
+  "PR-AUC validation croisée": 0.9165
+}

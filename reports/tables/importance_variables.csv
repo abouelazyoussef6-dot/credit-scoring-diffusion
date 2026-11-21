@@ -1,0 +1,14 @@
+,signification,SHAP (moyenne |contribution|),Permutation (baisse de PR-AUC),écart-type permutation,rang SHAP,rang permutation
+DEBTINC,Ratio dette / revenu (%),1.9939,0.1398,0.0113,1,1.0
+DELINQ,Lignes de crédit en retard de paiement,1.292,0.124,0.0098,2,2.0
+JOB,Catégorie professionnelle,1.2156,0.0416,0.0047,3,10.0
+CLAGE,Âge de la plus ancienne ligne de crédit (mois),1.1969,0.0935,0.0102,4,3.0
+DEROG,Incidents de paiement majeurs,0.8906,0.0506,0.0095,5,8.0
+VALUE,Valeur actuelle du bien,0.8207,0.0881,0.0081,6,4.0
+YOJ,Ancienneté dans l'emploi (années),0.6194,0.0471,0.0045,7,9.0
+CLNO,Nombre de lignes de crédit,0.5945,0.0554,0.0054,8,6.0
+LOAN,Montant du prêt demandé,0.5479,0.059,0.011,9,5.0
+MORTDUE,Capital restant dû sur l'hypothèque,0.4891,0.0522,0.0076,10,7.0
+NINQ,Demandes de crédit récentes,0.4041,0.0258,0.0049,11,11.0
+LTV,Ratio (prêt + hypothèque) / valeur du bien,0.3869,,,12,
+REASON,Motif du prêt,0.1846,0.0029,0.0013,13,12.0

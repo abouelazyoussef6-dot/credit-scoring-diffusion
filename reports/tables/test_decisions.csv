@@ -1,0 +1,4 @@
+seuil choisi pour,seuil,VP,FP,FN,VN,Précision,Rappel,F1,Coût,coût hors-pli par demande,coût test par demande
+Coût minimal (5:1),0.127,218,96,20,858,0.6943,0.916,0.7899,196.0,0.1393,0.1644
+F1 maximal,0.4598,186,36,52,918,0.8378,0.7815,0.8087,296.0,0.2024,0.2483
+Seuil naïf,0.5,182,32,56,922,0.8505,0.7647,0.8053,312.0,0.2194,0.2617

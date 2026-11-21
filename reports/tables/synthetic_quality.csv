@@ -1,0 +1,6 @@
+méthode,KS moyen,TVD moyenne,Écart corrélations,Excès aux bornes (%),Détectabilité (ROC-AUC),Rapport DCR,Quasi-copies (%),Copies exactes (%)
+Vrais défauts inédits (contrôle),0.07,0.027,0.078,-0.022,0.496,1.034,6.208,0.0
+SMOTE,0.119,0.052,0.034,-0.327,0.92,0.58,33.443,0.0
+TVAE,0.252,0.118,0.094,0.356,0.988,0.93,1.718,0.0
+CTGAN,0.179,0.08,0.161,4.461,0.968,1.7,0.0,0.0
+TabDDPM,0.045,0.027,0.052,2.992,0.852,1.073,1.797,0.096

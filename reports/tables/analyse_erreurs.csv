@@ -1,0 +1,5 @@
+,effectif,probabilité médiane,DEBTINC manquant (%),DEBTINC médian,au moins 1 retard (DELINQ) (%),au moins 1 incident (DEROG) (%),CLAGE médian (mois),NINQ moyen,LOAN médian,aucune valeur manquante (%)
+Défauts refusés (VP),218.0,0.94,71.56,39.15,47.25,31.19,141.0,1.94,15000.0,21.1
+Défauts acceptés à tort (FN),20.0,0.04,40.0,33.92,15.0,0.0,138.38,1.17,19100.0,45.0
+Bons payeurs refusés à tort (FP),96.0,0.29,69.79,34.95,32.29,12.5,136.0,1.63,15000.0,25.0
+Bons payeurs acceptés (VN),858.0,0.01,3.61,34.54,11.42,7.58,180.56,0.92,17350.0,69.46

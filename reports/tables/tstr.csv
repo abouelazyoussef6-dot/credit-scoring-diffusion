@@ -1,0 +1,6 @@
+défauts d'entraînement,PR-AUC LogReg,PR-AUC XGBoost,PR-AUC LightGBM,part conservée LogReg (%),part conservée XGBoost (%),part conservée LightGBM (%)
+Vrais défauts,0.793,0.907,0.915,100.0,100.0,100.0
+SMOTE,0.768,0.82,0.837,96.875,90.394,91.498
+TVAE,0.396,0.538,0.569,49.963,59.357,62.169
+CTGAN,0.696,0.701,0.73,87.681,77.348,79.826
+TabDDPM,0.776,0.846,0.836,97.867,93.273,91.421

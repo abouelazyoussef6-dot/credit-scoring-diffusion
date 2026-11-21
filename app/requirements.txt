@@ -1,0 +1,12 @@
+# Dépendances de l'application seule (déploiement Streamlit Community Cloud, Python 3.11).
+# Mêmes versions que celles ayant servi à entraîner le modèle enregistré.
+streamlit==1.67.0
+pandas==2.3.3
+numpy==1.26.4
+scikit-learn==1.9.1
+xgboost==2.1.4
+lightgbm==4.7.0
+shap==0.49.1
+matplotlib==3.11.2
+joblib==1.6.0
+pyarrow==24.0.0

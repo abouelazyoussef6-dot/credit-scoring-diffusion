@@ -1,0 +1,34 @@
+# Environnement complet pour reproduire toutes les expériences.
+# Testé avec Python 3.11 (synthcity n'est pas compatible avec Python 3.13).
+# Versions figées : ce sont celles qui ont produit les résultats du rapport.
+
+# Données
+pandas==2.3.3
+numpy==1.26.4
+kaggle==2.2.5
+
+# Machine learning
+scikit-learn==1.9.1
+imbalanced-learn==0.14.2
+xgboost==2.1.4
+lightgbm==4.7.0
+scipy==1.17.1
+
+# Modèles génératifs
+torch==2.2.2
+ctgan==0.13.0          # TVAE et CTGAN (implémentation de référence du projet SDV)
+synthcity==0.2.12      # TabDDPM
+opacus==1.5.2          # versions plus récentes incompatibles avec le PyTorch requis par synthcity
+
+# Interprétabilité
+shap==0.49.1
+
+# Visualisation et notebooks
+matplotlib==3.11.2
+jupyter==1.1.1
+nbconvert==7.17.2
+
+# Application
+streamlit==1.67.0
+joblib==1.6.0
+pyarrow==24.0.0          # version compatible avec numpy 1.26 (nécessaire à Streamlit)

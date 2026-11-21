@@ -1,0 +1,24 @@
+# Données intermédiaires (recalculées par les scripts) ; hmeq.csv (0,4 Mo) est versionné
+data/raw/*
+data/processed/*
+!data/raw/.gitkeep
+!data/raw/hmeq.csv
+!data/processed/.gitkeep
+
+# Identifiants
+kaggle.json
+.env
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# Dossiers créés par certaines bibliothèques
+workspace/
+
+# Système
+.DS_Store
+Thumbs.db
