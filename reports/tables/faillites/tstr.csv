@@ -1,0 +1,6 @@
+faillites d'entraînement,PR-AUC LogReg,PR-AUC XGBoost,PR-AUC LightGBM,part conservée LogReg (%),part conservée XGBoost (%),part conservée LightGBM (%)
+Vraies faillites,0.41,0.648,0.647,100.0,100.0,100.0
+SMOTE,0.384,0.542,0.562,93.68,83.568,86.758
+TVAE,0.06,0.088,0.09,14.553,13.615,13.872
+CTGAN,0.057,0.087,0.08,13.894,13.408,12.35
+TabDDPM,0.298,0.484,0.555,72.786,74.661,85.76

@@ -6,7 +6,8 @@
 
 Chaque étape enregistre ses résultats au fur et à mesure : après une interruption,
 relancer la même commande reprend là où le calcul s'était arrêté.
-Durée totale indicative sur un ordinateur portable récent : 1 h 30 à 2 h 30.
+Durée totale indicative sur un ordinateur portable récent : 2 h à 3 h 30 (étude 2 : environ 1 h).
+    python run_all.py --from 12    # l'étude 2 seule
 """
 import argparse
 import subprocess
@@ -25,6 +26,16 @@ STEPS = [
     ("src.final_evaluation", "Évaluation finale sur le jeu de test"),
     ("src.interpretability", "Interprétabilité (SHAP) et analyse des erreurs"),
     ("src.build_app_data", "Fichiers de l'application"),
+    # Étude 2 : faillites d'entreprises (déséquilibre naturel fort, 4,7 %)
+    ("src.faillites.data", "Étude 2 — contrôle et découpage des données de faillites"),
+    ("src.faillites.build_eda_notebook", "Étude 2 — analyse exploratoire (notebook exécuté)"),
+    ("src.faillites.tuning", "Étude 2 — réglage des classifieurs"),
+    ("src.faillites.ddpm_tuning", "Étude 2 — réglage de TabDDPM"),
+    ("src.faillites.experiment", "Étude 2 — comparaison de toutes les méthodes"),
+    ("src.faillites.analysis", "Étude 2 — tableaux, tests statistiques et figures"),
+    ("src.faillites.synthetic_quality", "Étude 2 — qualité des faillites synthétiques"),
+    ("src.faillites.final_evaluation", "Étude 2 — évaluation finale sur le jeu de test"),
+    ("src.faillites.interpretability", "Étude 2 — interprétabilité (SHAP)"),
 ]
 
 

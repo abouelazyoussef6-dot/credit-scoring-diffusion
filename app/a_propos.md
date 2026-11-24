@@ -1,5 +1,8 @@
 ### Le projet
 
+**Équipe :** Abouelaz Youssef, Sissi Youssef, Ettahiri Mohamed Yassine, Achbani Ismail
+(École Centrale Casablanca).
+
 **Sujet :** génération de données tabulaires synthétiques par modèles de diffusion pour le traitement du
 déséquilibre des classes — application au scoring de crédit.
 
@@ -30,6 +33,11 @@ TabDDPM (modèle de diffusion). Chaque méthode est testée avec trois classifie
 5. **Rééquilibrer déplace surtout le seuil.** Avec un seuil fixe de 0,5, toutes les méthodes augmentent le
    rappel ; mais on obtient le même effet, sans donnée synthétique, en choisissant le seuil.
 
+6. **Étude 2 — faillites d'entreprises (4,7 % de défauts naturels, 10 503 entreprises, 64 ratios).** Le même
+   protocole confirme ces constats : TabDDPM produit de loin les faillites synthétiques les plus fidèles (écart
+   0,025 contre 0,16 à 0,22), sans recopie, et c'est le seul à aider LightGBM (+0,010 de PR-AUC, non
+   significatif). Voir l'onglet « Étude 2 ».
+
 ### Le modèle de cette application
 
 LightGBM entraîné sur les données réelles, sans rééquilibrage : la règle fixée à l'avance retient le modèle le
@@ -45,7 +53,7 @@ sur les données d'entraînement uniquement ; évaluation sur de vraies demandes
 
 ### Limites
 
-Un seul jeu de données, de taille modeste et ancien ; valeurs manquantes très informatives (un ratio dette /
+Deux jeux de données de taille moyenne (le principal est ancien) ; valeurs manquantes très informatives (un ratio dette /
 revenu non renseigné suffit presque à prédire le défaut), ce qui reflète le processus de collecte autant que le
 risque ; pas de dimension temporelle ; les demandes refusées à l'époque sont absentes des données. Cet outil
 est une démonstration pédagogique, pas un système de décision de crédit.

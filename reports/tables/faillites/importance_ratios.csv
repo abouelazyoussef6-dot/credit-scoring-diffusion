@@ -1,0 +1,65 @@
+ratio,définition,importance SHAP,importance SHAP (modèle + TabDDPM)
+X34,Charges d'exploitation / total dettes,1.1559,0.4634
+X27,Résultat d'exploitation / charges financières,0.7267,0.7709
+X5,[(Trésorerie + titres CT + créances − dettes CT) / (charges d'exploitation − amortissements)] × 365,0.6251,0.5515
+X46,(Actif circulant − stocks) / dettes à court terme,0.5158,0.5284
+X58,Coûts totaux / ventes totales,0.4232,0.2768
+X21,Chiffre d'affaires (n) / chiffre d'affaires (n−1),0.4009,0.3239
+X24,Résultat brut (sur 3 ans) / total actif,0.3313,0.3029
+X26,(Résultat net + amortissements) / total dettes,0.3027,0.2683
+X39,Résultat sur ventes / chiffre d'affaires,0.2726,0.2073
+X6,Réserves (bénéfices non distribués) / total actif,0.2639,0.3544
+X13,(Résultat brut + amortissements) / chiffre d'affaires,0.2467,0.3588
+X25,(Capitaux propres − capital social) / total actif,0.2404,0.3562
+X35,Résultat sur ventes / total actif,0.2088,0.1754
+X33,Charges d'exploitation / dettes à court terme,0.1848,0.0819
+X29,Logarithme du total actif (taille),0.1683,0.1528
+X41,Total dettes / ((résultat d'exploitation + amortissements) × 12/365),0.1539,0.2094
+X16,(Résultat brut + amortissements) / total dettes,0.1522,0.298
+X40,(Actif circulant − stocks − créances) / dettes à court terme,0.1393,0.1334
+X47,(Stocks × 365) / coût des produits vendus,0.136,0.1115
+X20,(Stocks × 365) / chiffre d'affaires,0.1292,0.1329
+X56,(Chiffre d'affaires − coût des produits vendus) / chiffre d'affaires,0.1275,0.0982
+X36,Ventes totales / total actif,0.1249,0.0874
+X38,Capitaux permanents / total actif,0.1244,0.0969
+X30,(Total dettes − trésorerie) / chiffre d'affaires,0.1217,0.0889
+X42,Résultat d'exploitation / chiffre d'affaires,0.1173,0.2475
+X23,Résultat net / chiffre d'affaires,0.1161,0.0631
+X9,Chiffre d'affaires / total actif,0.1153,0.0961
+X44,(Créances × 365) / chiffre d'affaires,0.1149,0.1074
+X19,Résultat brut / chiffre d'affaires,0.1077,0.0946
+X4,Actif circulant / dettes à court terme,0.0995,0.0814
+X60,Chiffre d'affaires / stocks,0.0963,0.095
+X55,Fonds de roulement (montant),0.0933,0.0853
+X12,Résultat brut / dettes à court terme,0.09,0.0494
+X64,Chiffre d'affaires / actif immobilisé,0.0875,0.0566
+X37,(Actif circulant − stocks) / dettes à long terme,0.0872,0.0832
+X49,EBITDA / chiffre d'affaires,0.0851,0.1114
+X48,EBITDA / total actif,0.0844,0.1185
+X22,Résultat d'exploitation / total actif,0.084,0.1385
+X61,Chiffre d'affaires / créances,0.0738,0.094
+X32,(Dettes courantes × 365) / coût des produits vendus,0.0727,0.0979
+X31,(Résultat brut + intérêts) / chiffre d'affaires,0.0666,0.0431
+X28,Fonds de roulement / actif immobilisé,0.0633,0.0473
+X11,(Résultat brut + éléments exceptionnels + charges financières) / total actif,0.061,0.0515
+X15,(Total dettes × 365) / (résultat brut + amortissements),0.0606,0.331
+X62,(Dettes à court terme × 365) / chiffre d'affaires,0.0599,0.0579
+X3,Fonds de roulement / total actif,0.0543,0.0526
+X51,Dettes à court terme / total actif,0.0523,0.0525
+X50,Actif circulant / total dettes,0.051,0.0395
+X57,(Actif circulant − stocks − dettes CT) / (CA − résultat brut − amortissements),0.0487,0.0456
+X45,Résultat net / stocks,0.0446,0.0723
+X43,Rotation des créances + des stocks (jours),0.0444,0.0312
+X52,(Dettes à court terme × 365) / coût des produits vendus,0.0426,0.1158
+X10,Capitaux propres / total actif,0.0411,0.1078
+X54,Capitaux permanents / actif immobilisé,0.0405,0.0748
+X53,Capitaux propres / actif immobilisé,0.0388,0.0525
+X59,Dettes à long terme / capitaux propres,0.038,0.0451
+X2,Total dettes / total actif,0.0365,0.1571
+X8,Capitaux propres comptables / total dettes,0.0256,0.0889
+X14,(Résultat brut + intérêts) / total actif,0.0254,0.0676
+X1,Résultat net / total actif,0.0231,0.0273
+X7,EBIT / total actif,0.0225,0.058
+X63,Chiffre d'affaires / dettes à court terme,0.0199,0.0305
+X18,Résultat brut / total actif,0.0134,0.0903
+X17,Total actif / total dettes,0.0088,0.0394

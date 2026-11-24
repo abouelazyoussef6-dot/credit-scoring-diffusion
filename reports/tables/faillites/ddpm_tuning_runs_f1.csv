@@ -1,0 +1,4 @@
+pli,itérations,durée (s),KS moyen,Écart manquants,Écart de distribution,Écart corrélations,Détectabilité (ROC-AUC),Rapport DCR,Quasi-copies (%),Copies exactes (%)
+1,1000,94,0.0398,0.0197,0.0298,0.0702,0.9263,1.1357,0.3,0.0
+1,2500,110,0.053,0.0326,0.0428,0.0596,0.8089,1.007,0.7,0.0
+1,5000,299,0.0695,0.0387,0.0541,0.0527,0.7517,0.9282,4.8,0.0

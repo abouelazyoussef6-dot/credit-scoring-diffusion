@@ -90,9 +90,9 @@ st.title("Scoring de crédit : estimer le risque de défaut d'une demande de pr�
 suffix = "sans rééquilibrage des classes" if bundle["config"] == "Aucune" else bundle["config"]
 st.caption(f"Modèle : {bundle['classifier']}, {suffix} — données HMEQ (prêts garantis par un bien immobilier)")
 
-tab_form, tab_thr, tab_cmp, tab_syn, tab_csv, tab_about = st.tabs([
+tab_form, tab_thr, tab_cmp, tab_syn, tab_e2, tab_csv, tab_about = st.tabs([
     "Évaluer une demande", "Régler le seuil de décision", "Comparaison des méthodes",
-    "Défauts synthétiques", "Scorer un fichier", "À propos"])
+    "Défauts synthétiques", "Étude 2 : faillites (4,7 %)", "Scorer un fichier", "À propos"])
 
 # ------------------------------------------------------------------------------------------
 with tab_form:
@@ -279,6 +279,41 @@ with tab_syn:
     st.image(str(FIG / "qualite_correlations.png"))
     st.image(str(FIG / "ddpm_tuning.png"), caption="Réglage de TabDDPM : s'entraîner plus longtemps améliore la "
              "fidélité, puis le modèle se rapproche de ses données d'entraînement.")
+
+# ------------------------------------------------------------------------------------------
+with tab_e2:
+    T2, F2 = TAB / "faillites", FIG / "faillites"
+    st.markdown("**Étude de robustesse** : le même protocole, appliqué à un second portefeuille plus grand où le "
+                "défaut est naturellement rare — 10 503 entreprises industrielles polonaises décrites par 64 ratios "
+                "financiers, dont **4,7 % font faillite** dans les trois ans (UCI, *Polish Companies Bankruptcy*, "
+                "Tomczak 2016, licence CC BY 4.0).")
+    m1, m2, m3, m4 = st.columns(4)
+    m1.metric("Entreprises (dév. + test)", "10 416", help="Après retrait de 87 doublons exacts")
+    m2.metric("Part de faillites", "4,7 %")
+    m3.metric("Écart de distribution TabDDPM", "0,025", "-0,19 vs CTGAN", delta_color="inverse")
+    m4.metric("Gain LightGBM + TabDDPM", "+0,010", "non significatif", delta_color="off")
+    st.subheader("Validation croisée (15 découpages)")
+    best2 = load_csv(str(T2 / "cv_best.csv"))
+    clf2 = st.radio("Classifieur ", list(best2["classifieur"].unique())[::-1], horizontal=True)
+    cols = ["config", "PR-AUC", "PR-AUC (écart-type)", "ROC-AUC", "KS", "gain", "p-valeur (Holm)", "découpages gagnés"]
+    st.dataframe(best2[best2["classifieur"] == clf2][cols].round(3), hide_index=True, width="stretch")
+    st.image(str(F2 / "cv_gains.png"))
+    st.image(str(F2 / "cv_dose.png"), caption="Plus on ajoute de faillites synthétiques, plus la PR-AUC baisse : "
+             "viser l'équilibre parfait (environ 20 faillites synthétiques par vraie) est toujours le pire choix.")
+    st.subheader("Qualité des faillites synthétiques")
+    st.dataframe(load_csv(str(T2 / "synthetic_quality.csv"), index_col=0).round(3), width="stretch")
+    st.image(str(F2 / "qualite_distributions.png"))
+    st.subheader("Jeu de test (2 084 entreprises, 99 faillites)")
+    res2 = load_csv(str(T2 / "test_results.csv"))
+    st.dataframe(res2[["classifieur", "config", "PR-AUC validation croisée", "PR-AUC test", "IC bas", "IC haut",
+                       "différence vs Aucune", "diff. IC bas", "diff. IC haut"]].round(3),
+                 hide_index=True, width="stretch")
+    st.image(str(F2 / "test_pr_auc.png"))
+    st.image(str(F2 / "importance_ratios.png"))
+    st.info("Conclusion : un déséquilibre quatre fois plus fort confirme l'étude principale. TabDDPM produit de loin "
+            "les faillites synthétiques les plus fidèles, sans recopier les vraies ; son apport à la prédiction est le "
+            "meilleur des générateurs (+0,010 de PR-AUC pour LightGBM, 10 découpages gagnés sur 15) mais il n'est pas "
+            "statistiquement établi. Le modèle retenu reste LightGBM sans rééquilibrage (PR-AUC test 0,763).")
 
 # ------------------------------------------------------------------------------------------
 with tab_csv:

@@ -1,8 +1,9 @@
-# Données intermédiaires (recalculées par les scripts) ; hmeq.csv (0,4 Mo) est versionné
+# Données intermédiaires (recalculées par les scripts) ; hmeq.csv et polish_3year.arff sont versionnés
 data/raw/*
 data/processed/*
 !data/raw/.gitkeep
 !data/raw/hmeq.csv
+!data/raw/polish_3year.arff
 !data/processed/.gitkeep
 
 # Identifiants

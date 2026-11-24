@@ -37,3 +37,31 @@ Le dictionnaire des variables figure dans le `README.md` à la racine du dépôt
    défauts de la partie entraînement de chaque pli. Les valeurs manquantes y sont représentées par une
    colonne « oui / non », puis restaurées après génération ; les comptages sont arrondis à l'entier, les
    montants de prêt à la centaine, et toutes les valeurs bornées au domaine observé.
+
+## Étude 2 : faillites d'entreprises
+
+**Polish Companies Bankruptcy** — Tomczak, S. (2016). UCI Machine Learning Repository,
+https://doi.org/10.24432/C5F600, licence CC BY 4.0. Article associé : Zięba, Tomczak et Tomczak (2016),
+*Expert Systems with Applications*, 58, 93-101.
+
+- Fichier utilisé : `raw/polish_3year.arff` (3ᵉ année : ratios d'un exercice, statut de faillite trois ans plus
+  tard), tel que publié, non modifié.
+- Contrôles à l'ouverture (`src/faillites/data.py`) : 10 503 entreprises, 64 ratios (X1 à X64), 495 faillites
+  (4,7 %). Valeurs manquantes notées « ? » dans le fichier.
+
+| Fichier | Contenu | Produit par |
+|---|---|---|
+| `processed/faillites_test.csv` | Jeu de test : 2 084 entreprises (99 faillites), mis de côté avant tout traitement | `src/faillites/data.py` |
+| `processed/faillites_dev.csv` | Développement : 8 332 entreprises (394 faillites) + colonnes `fold_r0..2` | `src/faillites/data.py` |
+| `processed/synthetic/faillites/` | Cache des faillites synthétiques (non versionné) | `src/faillites/generators.py` |
+
+Traitements :
+
+1. **Suppression de 87 doublons exacts** (mêmes 64 ratios, même issue), pour qu'une même entreprise ne se
+   retrouve pas à la fois à l'entraînement et au test ; puis découpage stratifié 80 / 20, graine 42.
+2. **Prétraitement à la volée** (`src/faillites/features.py`), appris sur l'entraînement de chaque pli :
+   logarithme signé sign(x)·log(1 + |x|) des 64 ratios, indicateur « valeur manquante » pour chaque ratio manquant
+   dans au moins 1 % des entreprises, imputation par la médiane, standardisation.
+3. **Faillites synthétiques** : générateurs entraînés sur les seules faillites d'entraînement du pli, sur
+   l'échelle du logarithme signé ; retour à l'échelle d'origine, valeurs bornées au domaine observé, valeurs
+   manquantes restaurées d'après l'indicateur généré.

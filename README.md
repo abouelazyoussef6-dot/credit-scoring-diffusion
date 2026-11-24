@@ -1,12 +1,14 @@
 # Défauts synthétiques par modèles de diffusion pour le scoring de crédit
 
-Projet de Machine Learning — *Génération de données tabulaires synthétiques par modèles de diffusion pour le
+Projet de Machine Learning — École Centrale Casablanca — *Génération de données tabulaires synthétiques par modèles de diffusion pour le
 traitement du déséquilibre des classes : application au scoring de crédit.*
 
 **Question :** des défauts de paiement synthétiques produits par un modèle de diffusion (TabDDPM) aident-ils un
 modèle de scoring à mieux repérer les vrais défauts, par rapport aux méthodes classiques (pondération,
 sous-échantillonnage, duplication, SMOTE), à d'autres générateurs profonds (TVAE, CTGAN) et à l'absence de
 rééquilibrage ?
+
+**Équipe :** Abouelaz Youssef, Sissi Youssef, Ettahiri Mohamed Yassine, Achbani Ismail
 
 **Application en ligne : https://scoring-credit-diffusion.streamlit.app** · Code : https://github.com/abouelazyoussef6-dot/credit-scoring-diffusion
 
@@ -59,6 +61,8 @@ Ce qu'il faut retenir :
    d'arbres un gain modeste mais régulier (+0,005 à +0,02), ce que SMOTE ne fait pas.
 5. **Rééquilibrer déplace surtout le seuil de décision** : au seuil 0,5 le rappel de la régression logistique passe
    de 0,63 à 0,80, mais la PR-AUC ne bouge pas. On obtient le même effet en choisissant le seuil.
+6. **Sur un portefeuille à 4,7 % de défauts naturels** (étude 2, faillites d'entreprises), le constat est le
+   même : TabDDPM est de loin le meilleur générateur et le seul à aider LightGBM (+0,010), sans significativité.
 
 **Modèle final** (règle fixée à l'avance : le plus simple quand aucun autre n'est significativement meilleur) :
 LightGBM sans rééquilibrage, probabilités calibrées. Sur le test : PR-AUC 0,904 [0,876 ; 0,928], ROC-AUC 0,961,
@@ -70,6 +74,30 @@ renseigné), les retards de paiement, l'ancienneté de l'historique de crédit e
 entraîné avec des défauts TabDDPM s'appuie sur les mêmes variables (corrélation des importances : 0,99).
 
 Figures : `reports/figures/` — tableaux : `reports/tables/`.
+
+## Étude 2 : faillites d'entreprises, déséquilibre naturel fort (4,7 %)
+
+Pour vérifier que les conclusions tiennent quand le défaut est **naturellement rare** et le portefeuille plus
+grand, tout le protocole est rejoué sur un second jeu : **Polish Companies Bankruptcy** (UCI, Tomczak 2016,
+licence CC BY 4.0, DOI 10.24432/C5F600), fichier de la 3ᵉ année — 10 503 entreprises industrielles polonaises,
+64 ratios financiers, **495 faillites (4,7 %)** dans les trois ans. Code : `src/faillites/`, résultats :
+`reports/tables/faillites/` et `reports/figures/faillites/`, onglet « Étude 2 » de l'application.
+
+| Constat | Chiffres (15 découpages de validation croisée, puis test) |
+|---|---|
+| TabDDPM génère de loin les faillites les plus fidèles | écart de distribution 0,025 contre 0,159 (TVAE) et 0,218 (CTGAN) ; corrélations conservées |
+| Aucune recopie | rapport DCR 1,22 ; 0,1 % de quasi-copies (SMOTE : 75 %) |
+| Utilité sans aucune vraie faillite | 73 à 86 % de la PR-AUC conservée (TVAE, CTGAN : 12 à 15 %) |
+| Gain en prédiction : le meilleur des générateurs, non significatif | LightGBM + TabDDPM 0,669 contre 0,659 (+0,010, 10 découpages gagnés sur 15) ; test : 0,767 contre 0,763 |
+| Trop ajouter dégrade toujours | viser l'équilibre (≈ 20 faillites synthétiques par vraie) est le pire choix pour toutes les méthodes |
+| Sous-échantillonnage | perte significative pour les trois classifieurs |
+| Modèle retenu | LightGBM sans rééquilibrage : PR-AUC test 0,763 [0,690 ; 0,832], ROC-AUC 0,966 ; au seuil de coût, 82 faillites repérées sur 99 pour 3,9 % de fausses alertes |
+
+Adaptations : logarithme signé des ratios (valeurs extrêmes), indicateurs de valeur manquante, doses 1, 2, 5 et
+équilibre. **Point technique** : avec ses réglages par défaut, le TabDDPM de synthcity diverge sur ces 64 ratios
+(normalisation à 10 quantiles seulement, calendrier de bruit cosinus, diffusion mixte avec les indicateurs
+catégoriels) ; `src/faillites/generators.py` appelle directement le modèle avec une normalisation à pleine
+résolution, le calendrier linéaire et des indicateurs numériques, ce qui fait passer l'écart de 0,38 à 0,025.
 
 ## Données
 
@@ -112,9 +140,11 @@ credit-scoring-diffusion/
 ├── data/
 │   ├── LISEZMOI.md             # source des données et traitements effectués
 │   ├── raw/hmeq.csv            # jeu de données (0,4 Mo)
+│   ├── raw/polish_3year.arff   # étude 2 : faillites d'entreprises (5 Mo, UCI)
 │   └── processed/              # découpages et défauts synthétiques en cache (régénérés par script)
 ├── notebooks/
-│   └── 01_eda.ipynb            # analyse exploratoire, exécutée, sur le jeu de développement
+│   ├── 01_eda.ipynb            # analyse exploratoire, exécutée, sur le jeu de développement
+│   └── 02_eda_faillites.ipynb  # étude 2 : analyse exploratoire des faillites
 ├── src/
 │   ├── config.py               # chemins, graine, protocole d'évaluation, dictionnaire des variables
 │   ├── download_data.py        # 1. récupération et vérification des données
@@ -133,13 +163,15 @@ credit-scoring-diffusion/
 │   ├── rarity.py               # 8. étude de rareté (fort déséquilibre)
 │   ├── final_evaluation.py     # 9. évaluation finale sur le test (une seule fois)
 │   ├── interpretability.py     # 10. SHAP, importance par permutation, analyse des erreurs
-│   └── build_app_data.py       # 11. fichiers de l'application
+│   ├── build_app_data.py       # 11. fichiers de l'application
+│   └── faillites/              # 12 à 20. étude 2, mêmes étapes (data, tuning, ddpm_tuning, experiment, …)
 ├── app/
 │   ├── streamlit_app.py        # application de démonstration
 │   ├── requirements.txt        # dépendances de l'application seule (déploiement)
 │   └── data/                   # petits fichiers nécessaires à l'application
 ├── models/
-│   └── final_model.joblib      # modèle final, prétraitement et seuils
+│   ├── final_model.joblib      # modèle final, prétraitement et seuils
+│   └── faillites_model.joblib  # étude 2 : modèle final
 └── reports/
     ├── figures/                # toutes les figures
     └── tables/                 # tous les tableaux de résultats (CSV)
@@ -163,7 +195,8 @@ télécharge depuis Kaggle (jeton `kaggle.json` nécessaire) ; on peut aussi le 
 ## Reproduire les résultats
 
 ```bash
-python run_all.py               # tout, dans l'ordre (1 h 30 à 2 h 30 sur un ordinateur portable)
+python run_all.py               # tout, dans l'ordre (2 h à 3 h 30 sur un ordinateur portable)
+python run_all.py --from 12     # l'étude 2 seule (environ 1 h)
 python run_all.py --from 5      # reprendre à partir d'une étape
 python run_all.py --only 9      # une seule étape
 ```
@@ -174,7 +207,7 @@ Les graines aléatoires sont fixées ; de légers écarts restent possibles d'un
 générateurs (calcul flottant de PyTorch). Tous les résultats du dépôt (tableaux, figures, modèle) sont déjà
 calculés : il n'est pas nécessaire de relancer les calculs pour utiliser l'application.
 
-Pour explorer les données : `jupyter notebook notebooks/01_eda.ipynb`.
+Pour explorer les données : `jupyter notebook notebooks/01_eda.ipynb` (étude 2 : `02_eda_faillites.ipynb`).
 
 ## Application
 
@@ -213,10 +246,10 @@ automatiquement.
 
 ## Limites
 
-- **Un seul jeu de données**, de taille modeste (5 960 demandes) : les conclusions ne se généralisent pas
-  automatiquement à d'autres portefeuilles de crédit.
-- **Déséquilibre naturel modéré (20 %)** : le fort déséquilibre est obtenu en retirant de vrais défauts de
-  l'entraînement (étude de rareté, 5 plis seulement, sans test statistique).
+- **Deux jeux de données** de taille moyenne (5 960 demandes ; 10 416 entreprises) : les conclusions concordent,
+  mais d'autres portefeuilles (crédit à la consommation, cartes, < 1 % de défauts) restent à tester.
+- **Le second jeu porte sur des entreprises**, pas sur des particuliers : il teste la robustesse au déséquilibre
+  et au nombre de variables, pas le même métier.
 - **Gain non significatif** : sur le test, l'intervalle de l'écart TabDDPM − sans rééquilibrage exclut zéro, mais
   15 comparaisons y sont faites sans correction ; la validation croisée, elle, ne conclut pas.
 - **TVAE et CTGAN sont utilisés avec leurs réglages par défaut** (300 époques) ; seul TabDDPM a fait l'objet d'un
@@ -232,6 +265,8 @@ automatiquement.
 ## Références
 
 - Baesens, Rösch, Scheule (2016). *Credit Risk Analytics*. Wiley (jeu de données HMEQ).
+- Tomczak (2016). *Polish Companies Bankruptcy* [jeu de données]. UCI Machine Learning Repository, doi:10.24432/C5F600.
+- Zięba, Tomczak, Tomczak (2016). *Ensemble Boosted Trees with Synthetic Features Generation in Application to Bankruptcy Prediction*. Expert Systems with Applications, 58.
 - Chawla et al. (2002). *SMOTE: Synthetic Minority Over-sampling Technique*. JAIR.
 - Xu et al. (2019). *Modeling Tabular Data using Conditional GAN* (CTGAN, TVAE). NeurIPS.
 - Ho, Jain, Abbeel (2020). *Denoising Diffusion Probabilistic Models*. NeurIPS.
